@@ -66,7 +66,7 @@ footer { flex-direction: column; gap: 8px; text-align: center; }
 <a href="#about">About</a>
 <a href="#how">How it works</a>
 <a href="#contact">Contact</a>
-<a href="mailto:info@penni-tech.com" class="nav-cta">Partner with us</a>
+<a href="#contact" class="nav-cta">Partner with us</a>
 </div>
 </nav>
 
@@ -75,7 +75,7 @@ footer { flex-direction: column; gap: 8px; text-align: center; }
 <h1>The master tradesperson<br>in every <span>headset</span></h1>
 <p>TradeVision AI uses augmented reality and artificial intelligence to give trades students real-time, expert-level guidance — accelerating training, reducing errors, and closing the skilled labor gap.</p>
 <div class="hero-btns">
-<a href="mailto:info@penni-tech.com" class="btn-primary">Partner with us</a>
+<a href="#contact" class="btn-primary">Partner with us</a>
 <a href="#how" class="btn-secondary">See how it works</a>
 </div>
 <div class="stats">
@@ -159,15 +159,38 @@ footer { flex-direction: column; gap: 8px; text-align: center; }
 <div class="section-label">For institutions</div>
 <h2>Partner with us</h2>
 <p>We are currently accepting pilot partners — community colleges, trade schools, and union apprenticeship programs in the DC, Maryland, and Virginia region. Pilot partnerships are available at no cost in exchange for student outcome data.</p>
-<div style="margin-top: 1.75rem; display: flex; gap: 12px; flex-wrap: wrap;">
-<a href="mailto:info@penni-tech.com" class="btn-primary">Request a partnership call</a>
-</div>
+<div style="margin-top: 1.75rem;">
+      <form action="https://formspree.io/f/xojpvoqd" method="POST" style="max-width: 520px;">
+        <div style="margin-bottom: 14px;">
+          <input type="text" name="name" placeholder="Your name" required
+            style="width:100%; padding: 12px 16px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: Arial, sans-serif;">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <input type="email" name="email" placeholder="Your email address" required
+            style="width:100%; padding: 12px 16px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: Arial, sans-serif;">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <input type="text" name="organization" placeholder="Your institution or organization"
+            style="width:100%; padding: 12px 16px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: Arial, sans-serif;">
+        </div>
+        <div style="margin-bottom: 14px;">
+          <textarea name="message" placeholder="Tell us about your program and how you would like to partner" rows="4" required
+            style="width:100%; padding: 12px 16px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-family: Arial, sans-serif; resize: vertical;"></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New Partnership Inquiry TradeVision AI">
+        <input type="hidden" name="_next" value="https://penni-tech.com">
+        <button type="submit"
+          style="background: #1D9E75; color: #fff; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; border: none; cursor: pointer; width: 100%;">
+          Send message
+        </button>
+      </form>
+    </div>
 </div>
 
 <div class="cta-section">
 <h2>Ready to close the skills gap?</h2>
 <p>Join us in building the future of trades education — one headset at a time.</p>
-<a href="mailto:info@penni-tech.com" class="btn-primary">Get in touch</a>
+<a href="#contact" class="btn-primary">Get in touch</a>
 </div>
 
 <footer>
