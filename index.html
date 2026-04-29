@@ -41,7 +41,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
   color: var(--body);
-  background: var(--white);
+  background: #EFEFEF;
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -361,6 +361,8 @@ nav {
 .form-success h3.blue { color: var(--accent-blue); }
 .form-success h3.yellow { color: var(--accent-yellow); }
 .form-success p { font-size: 15px; color: var(--body); }
+.form-success { text-align: center; }
+.sam-subtitle { font-size: 14px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: -0.75rem; margin-bottom: 1.5rem; font-weight: 600; }
 
 .cta-banner {
   border-radius: var(--radius-lg);
@@ -810,14 +812,15 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 <div class="page" id="page-sam-dashboard">
   <div class="container">
     <div class="hero">
-      <h1><span class="hl-yellow">SAM</span> (Systems Administrative Management) Dashboard</h1>
+      <h1><span class="hl-yellow">SAM</span> Dashboard</h1>
+        <p class="sam-subtitle">Systems Administrative Management</p>
       <p>Request access to the SAM pilot.</p>
     </div>
   </div>
 
   <div class="container">
     <div class="section" id="sam-contact" style="padding-top: 1rem;">
-      <div class="form-wrap" style="margin-left: auto; margin-right: auto;">
+      <div class="form-wrap" style="margin-left: auto; margin-right: auto; text-align: left;">
         <form id="sam-access-form" onsubmit="return submitSamForm(this)">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
             <div class="form-field" style="margin-bottom: 0;">
