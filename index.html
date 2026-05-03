@@ -103,14 +103,18 @@ nav {
 
 .mobile-menu-btn svg { display: block; }
 
-.tab-bar-wrap { border-bottom: 1px solid var(--border); background: var(--white); }
+.tab-bar-wrap { border-bottom: 1px solid var(--border); background: var(--white); overflow: hidden; }
 
 .tab-bar {
   max-width: var(--max-w);
   margin: 0 auto;
   display: flex;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.tab-bar::-webkit-scrollbar { display: none; }
 
 .tab-btn {
   font-family: var(--font-body);
@@ -489,6 +493,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   .cta-banner h2 { font-size: 24px; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-right { text-align: center; }
+  .sam-grid-2 { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 480px) {
@@ -828,11 +833,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     <div class="section" id="sam-contact" style="padding-top: 1rem;">
       <div class="form-wrap" style="margin-left: auto; margin-right: auto; text-align: left;">
         <form id="sam-access-form" onsubmit="return submitSamForm(this)">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-            <div class="form-field" style="margin-bottom: 0;">
+          <div class="sam-grid-2">
+            <div class="form-field">
               <input type="text" name="first_name" placeholder="First Name *" required>
             </div>
-            <div class="form-field" style="margin-bottom: 0;">
+            <div class="form-field">
               <input type="text" name="last_name" placeholder="Last Name *" required>
             </div>
           </div>
@@ -842,11 +847,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
           <div class="form-field">
             <input type="text" name="company_name" placeholder="Company Name *" required>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-            <div class="form-field" style="margin-bottom: 0;">
+          <div class="sam-grid-2">
+            <div class="form-field">
               <input type="text" name="state" placeholder="State *" required maxlength="50">
             </div>
-            <div class="form-field" style="margin-bottom: 0;">
+            <div class="form-field">
               <input type="text" name="zip_code" placeholder="ZIP Code *" required pattern="\d{5}(-\d{4})?" title="5-digit ZIP or ZIP+4">
             </div>
           </div>
