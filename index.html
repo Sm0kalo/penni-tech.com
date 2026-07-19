@@ -503,6 +503,19 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   .hero h1 { font-size: 28px; }
 }
 </style>
+<!-- SAM site traffic tracking (pt-llc) -->
+<script>
+(function(){
+  var b='https://dev.penni-tech.com/pt-llc';
+  var t='7efb5661f5a8eeb617b7f046';
+  try{
+    var d=window.innerWidth<768?'mobile':window.innerWidth<1024?'tablet':'desktop';
+    var data=JSON.stringify({t:t,u:location.href,r:document.referrer,d:d});
+    if(navigator.sendBeacon){navigator.sendBeacon(b+'/api/t/hit',new Blob([data],{type:'application/json'}))}
+    else{var x=new XMLHttpRequest();x.open('POST',b+'/api/t/hit');x.setRequestHeader('Content-Type','application/json');x.send(data)}
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 
