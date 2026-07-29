@@ -374,7 +374,6 @@ nav {
 .form-success h3.yellow { color: var(--accent-yellow); }
 .form-success p { font-size: 15px; color: var(--body); }
 .form-success { text-align: center; }
-.sam-subtitle { font-size: 14px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: -0.75rem; margin-bottom: 1.5rem; font-weight: 600; }
 
 .cta-banner {
   border-radius: var(--radius-lg);
@@ -459,6 +458,236 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 
 .process-step h4 { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 0.4rem; }
 .process-step p { font-size: 12.5px; color: var(--body); line-height: 1.55; }
+
+/* ═══ SAM DASHBOARD — Apple-style ═══ */
+.sam-page {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEC 35%, #FFFFFF 100%);
+}
+
+.sam-page::before {
+  content: '';
+  position: absolute;
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(245,184,0,0.22) 0%, rgba(245,184,0,0) 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sam-page::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,140,0,0.10) 0%, rgba(255,140,0,0) 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sam-hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 5rem 0 2rem;
+}
+
+.sam-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--yellow-dark);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(245,184,0,0.25);
+  padding: 6px 14px 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 1.75rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(245,184,0,0.08);
+}
+
+.sam-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-yellow);
+  box-shadow: 0 0 10px var(--accent-yellow);
+  animation: samPulse 2s ease-in-out infinite;
+}
+
+@keyframes samPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.sam-hero h1 {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.sam-hero h1 .sam-mark {
+  background: linear-gradient(135deg, #FFC93C 0%, #f5b800 35%, #E89400 70%, #c97400 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 4px 18px rgba(245,184,0,0.35));
+}
+
+.sam-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+
+.sam-hero p.sam-lead {
+  font-size: 19px;
+  color: var(--body);
+  line-height: 1.55;
+  max-width: 520px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.sam-form-card {
+  position: relative;
+  z-index: 1;
+  max-width: 540px;
+  margin: 3rem auto 5rem;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 28px;
+  padding: 2.5rem 2.25rem;
+  box-shadow:
+    0 30px 60px -12px rgba(0,0,0,0.08),
+    0 8px 24px rgba(245,184,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.sam-form-title {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.sam-form-title h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--dark);
+  letter-spacing: -0.015em;
+  margin-bottom: 0.4rem;
+}
+
+.sam-form-title p {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* Paired fields (first/last name, state/zip). The mobile override that
+   collapses this to one column lives in the @media block below; without this
+   base rule the pair would never form two columns on desktop. */
+.sam-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.sam-form-card .form-field input {
+  border-radius: 14px;
+  padding: 15px 18px;
+  background: rgba(0,0,0,0.03);
+  border: 1.5px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dark);
+  transition: all 0.25s ease;
+}
+
+.sam-form-card .form-field input::placeholder {
+  color: #9a9a9a;
+  font-weight: 400;
+}
+
+.sam-form-card .form-field input:focus {
+  background: var(--white);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 0 4px rgba(245,184,0,0.15);
+}
+
+.sam-form-card .form-submit {
+  border-radius: 999px;
+  padding: 16px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #FFC93C 0%, #f5b800 50%, #E89400 100%);
+  color: #1A1100;
+  box-shadow:
+    0 10px 24px rgba(245,184,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+  margin-top: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.sam-form-card .form-submit:hover {
+  transform: translateY(-1.5px);
+  box-shadow:
+    0 14px 32px rgba(245,184,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  color: #1A1100;
+}
+
+.sam-form-card .form-submit:active {
+  transform: translateY(0);
+}
+
+.sam-form-card .form-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .sam-hero { padding: 3.5rem 0 1.25rem; }
+  .sam-hero h1 { font-size: 56px; letter-spacing: -0.03em; }
+  .sam-subtitle { font-size: 11px; letter-spacing: 2px; margin-bottom: 1.5rem; }
+  .sam-hero p.sam-lead { font-size: 17px; padding: 0 0.5rem; }
+  .sam-form-card {
+    margin: 2rem 0.5rem 3.5rem;
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+  }
+  .sam-form-title h3 { font-size: 22px; }
+  .sam-form-card .form-field input { padding: 14px 16px; font-size: 16px; }
+  .sam-form-card .form-submit { padding: 16px 24px; font-size: 15px; }
+  .sam-page::before { width: 700px; height: 700px; top: -150px; }
+  .sam-page::after { width: 380px; height: 380px; }
+}
+
+@media (max-width: 380px) {
+  .sam-hero h1 { font-size: 48px; }
+  .sam-form-card { padding: 1.75rem 1.25rem; }
+}
 
 @media (max-width: 768px) {
   nav { padding: 0.5rem 1.25rem; }
@@ -834,44 +1063,47 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 
 
 <!-- ═══ SAM DASHBOARD PAGE ═══ -->
-<div class="page" id="page-sam-dashboard">
+<div class="page sam-page" id="page-sam-dashboard">
   <div class="container">
-    <div class="hero">
-      <h1><span class="hl-yellow">SAM</span> Dashboard</h1>
-        <p class="sam-subtitle">Systems Administrative Management</p>
-      <p>Request access to the SAM pilot.</p>
+    <div class="sam-hero">
+      <span class="sam-eyebrow"><span class="sam-eyebrow-dot"></span>Pilot Access · By Invitation</span>
+      <h1><span class="sam-mark">SAM.</span></h1>
+      <p class="sam-subtitle">Systems Administrative Management</p>
+      <p class="sam-lead">Request access to the SAM pilot.</p>
     </div>
   </div>
 
   <div class="container">
-    <div class="section" id="sam-contact" style="padding-top: 1rem;">
-      <div class="form-wrap" style="margin-left: auto; margin-right: auto; text-align: left;">
-        <form id="sam-access-form" onsubmit="return submitSamForm(this)">
-          <div class="sam-grid-2">
-            <div class="form-field">
-              <input type="text" name="first_name" placeholder="First Name *" required>
-            </div>
-            <div class="form-field">
-              <input type="text" name="last_name" placeholder="Last Name *" required>
-            </div>
-          </div>
-          <div class="form-field">
-            <input type="email" name="email" placeholder="Email *" required>
-          </div>
-          <div class="form-field">
-            <input type="text" name="company_name" placeholder="Company Name *" required>
-          </div>
-          <div class="sam-grid-2">
-            <div class="form-field">
-              <input type="text" name="state" placeholder="State *" required maxlength="50">
-            </div>
-            <div class="form-field">
-              <input type="text" name="zip_code" placeholder="ZIP Code *" required pattern="\d{5}(-\d{4})?" title="5-digit ZIP or ZIP+4">
-            </div>
-          </div>
-          <button type="submit" class="form-submit yellow">Request Access</button>
-        </form>
+    <div class="sam-form-card" id="sam-contact">
+      <div class="sam-form-title">
+        <h3>Request Access</h3>
+        <p>We'll review and respond shortly.</p>
       </div>
+      <form id="sam-access-form" onsubmit="return submitSamForm(this)">
+        <div class="sam-grid-2">
+          <div class="form-field" style="margin-bottom: 0;">
+            <input type="text" name="first_name" placeholder="First Name" required>
+          </div>
+          <div class="form-field" style="margin-bottom: 0;">
+            <input type="text" name="last_name" placeholder="Last Name" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-field">
+          <input type="text" name="company_name" placeholder="Company Name" required>
+        </div>
+        <div class="sam-grid-2">
+          <div class="form-field" style="margin-bottom: 0;">
+            <input type="text" name="state" placeholder="State" required maxlength="50">
+          </div>
+          <div class="form-field" style="margin-bottom: 0;">
+            <input type="text" name="zip_code" placeholder="ZIP Code" required pattern="\d{5}(-\d{4})?" title="5-digit ZIP or ZIP+4">
+          </div>
+        </div>
+        <button type="submit" class="form-submit yellow">Request Access</button>
+      </form>
     </div>
   </div>
 </div>
