@@ -1176,6 +1176,28 @@ function submitForm(form, color) {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending...';
 
+  // Best-effort mirror to SAM so the business owner sees this lead in their
+  // dashboard, not just their inbox. Never blocks or affects the Formspree
+  // flow below — failures here are silently swallowed on purpose.
+  try {
+    var leadData = new FormData(form);
+    var params = new URLSearchParams(location.search);
+    fetch('https://dev.penni-tech.com/pt-llc/api/t/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        t: '7efb5661f5a8eeb617b7f046',
+        name: leadData.get('name') || '',
+        email: leadData.get('email') || '',
+        phone: leadData.get('phone') || '',
+        message: leadData.get('message') || '',
+        u: location.href,
+        r: document.referrer,
+        utm_content: params.get('utm_content') || null
+      })
+    }).catch(function () {});
+  } catch (e) {}
+
   fetch(form.action, {
     method: 'POST',
     body: new FormData(form),
