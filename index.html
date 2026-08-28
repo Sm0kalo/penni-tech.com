@@ -99,6 +99,15 @@ nav {
 
 .nav-cta:hover { background: #111111 !important; color: #ffffff !important; }
 
+/* Sign-in for existing SAM customers. Quieter than the CTA on purpose: the
+   page's job is still to convert new visitors, and someone who already has a
+   workspace knows what they are looking for. */
+.nav-login {
+  border: 1px solid var(--border) !important;
+  font-weight: 600 !important;
+}
+.nav-login:hover { border-color: #1a1a1a !important; color: #1a1a1a !important; }
+
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -604,6 +613,22 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   margin-bottom: 1.75rem;
 }
 
+/* Sits under the hero lead: this tab is written for people requesting access,
+   which left an existing customer with nowhere to go from the site at all. */
+.sam-hero p.sam-signin {
+  margin: 1.1rem auto 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.sam-hero p.sam-signin a {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26,26,26,0.25);
+  padding-bottom: 1px;
+}
+.sam-hero p.sam-signin a:hover { border-bottom-color: #1a1a1a; }
+
 .sam-hero p.sam-lead {
   font-size: 19px;
   color: var(--body);
@@ -734,6 +759,9 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     box-shadow: var(--shadow-md);
   }
   .nav-links.open a { padding: 10px 14px; }
+  /* The login link is a real destination, not decoration — it belongs in the
+     mobile menu with everything else rather than being dropped at <768px. */
+  .nav-links.open .nav-login { text-align: center; }
   .mobile-menu-btn { display: block; }
   .tab-bar { padding: 0 1rem; }
   .tab-btn { padding: 12px 16px; font-size: 13px; }
@@ -789,6 +817,9 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     <div class="nav-links" id="navLinks">
       <a href="#" onclick="switchTab('automation'); return false;">What We Automate</a>
       <a href="#" onclick="switchTab('sam-dashboard'); return false;">SAM Dashboard</a>
+      <!-- Existing SAM customers. Points at the workspace sign-in page at the
+           root of the app host, NOT at /admin/ (the operator's console). -->
+      <a href="https://sam.penni-tech.com/" class="nav-login">Log in</a>
       <a href="#" onclick="scrollToContact(); return false;" class="nav-cta">Get in Touch</a>
     </div>
   </nav>
@@ -1057,6 +1088,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
       <h1><span class="sam-mark">SAM.</span></h1>
       <p class="sam-subtitle">Systems Administrative Management</p>
       <p class="sam-lead">Request access to the SAM pilot.</p>
+      <p class="sam-signin">Already have a workspace? <a href="https://sam.penni-tech.com/">Log in to SAM</a></p>
     </div>
   </div>
 
