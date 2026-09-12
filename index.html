@@ -990,6 +990,23 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
           <div class="form-field">
             <input type="text" name="business" placeholder="Your Company">
           </div>
+          <!-- Optional on purpose. With no client base yet the job of this form
+               is to capture the lead; the industry read is a bonus, and making
+               it required would trade inquiries for data we can live without. -->
+          <div class="form-field">
+            <select name="industry">
+              <option value="" disabled selected>What kind of business are you?</option>
+              <option value="Legal">Legal</option>
+              <option value="Accounting / Finance">Accounting / Finance</option>
+              <option value="Healthcare / Medical">Healthcare / Medical</option>
+              <option value="Nonprofit / Association">Nonprofit / Association</option>
+              <option value="Government Contractor">Government Contractor</option>
+              <option value="Construction / Trades">Construction / Trades</option>
+              <option value="Real Estate">Real Estate</option>
+              <option value="Retail / Hospitality">Retail / Hospitality</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
           <div class="form-field">
             <input type="tel" name="phone" placeholder="Phone Number" required>
           </div>
