@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Penni Tech LLC | Document &amp; Workflow Automation — Washington DC</title>
-<meta name="description" content="Penni Tech automates certified payroll, submittal registers, and document workflows for specialty trade contractors and small businesses in Washington DC, Maryland, and Virginia. Fixed price, live in three weeks.">
+<title>Penni Tech LLC | IT Support &amp; Security for Small Businesses — Washington DC</title>
+<meta name="description" content="IT support and cybersecurity for small businesses in Washington DC, Maryland, and Virginia — backed by 20 years of experience. Help desk, security hardening, Microsoft 365 management, device setup, and backup and recovery.">
 <link rel="canonical" href="https://penni-tech.com/">
-<meta property="og:title" content="Penni Tech LLC | Document &amp; Workflow Automation — Washington DC">
-<meta property="og:description" content="We automate the document work that eats your week — certified payroll, submittal registers, change orders, closeout. Serving the DC, Maryland, and Virginia area.">
+<meta property="og:title" content="Penni Tech LLC | IT Support &amp; Security for Small Businesses — Washington DC">
+<meta property="og:description" content="IT support and cybersecurity for small businesses across the DC, Maryland, and Virginia area. Help desk, security hardening, Microsoft 365, device setup, and backup — without big-firm complexity.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://penni-tech.com/">
 <meta property="og:image" content="https://penni-tech.com/logo.png">
@@ -276,45 +276,6 @@ nav {
 }
 .fact-v { font-size: 13px; color: var(--body); line-height: 1.55; }
 
-/* ── right now / after blocks ── */
-.shifts { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
-
-.shift {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--white);
-  overflow: hidden;
-}
-
-.shift-head {
-  padding: 1.25rem 1.75rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.shift-head h3 { font-size: 17px; font-weight: 600; color: var(--dark); }
-.shift-head span { font-size: 12.5px; color: var(--muted); display: block; margin-top: 2px; }
-
-.shift-body { display: grid; grid-template-columns: 1fr 1fr; }
-
-.shift-col { padding: 1.5rem 1.75rem; }
-.shift-col:first-child { border-right: 1px solid var(--border); }
-
-.shift-tag {
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  display: block;
-}
-
-.shift-col.now .shift-tag { color: var(--muted); }
-.shift-col.after .shift-tag { color: var(--accent-blue); }
-.shift-col p { font-size: 13.5px; line-height: 1.7; }
-.shift-col.now p { color: var(--muted); }
-.shift-col.after p { color: var(--body); }
-
 /* ── also-serves band ── */
 .band {
   border: 1px solid var(--border);
@@ -328,6 +289,13 @@ nav {
 .band p { font-size: 13.5px; color: var(--body); max-width: 640px; margin: 0 auto; }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
 
 .card {
   border: 1px solid var(--border);
@@ -773,8 +741,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   .section h2 { font-size: 26px; }
   .facts { grid-template-columns: 1fr; max-width: 100%; }
   .grid-2 { grid-template-columns: 1fr; }
-  .shift-body { grid-template-columns: 1fr; }
-  .shift-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .services-grid { grid-template-columns: 1fr; }
   .offer { padding: 1.75rem 1.25rem; }
   .offer-terms { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr 1fr; }
@@ -815,7 +782,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
       <svg width="22" height="22" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/></svg>
     </button>
     <div class="nav-links" id="navLinks">
-      <a href="#" onclick="switchTab('automation'); return false;">What We Automate</a>
+      <a href="#" onclick="switchTab('automation'); return false;">IT Support &amp; Security</a>
       <a href="#" onclick="switchTab('sam-dashboard'); return false;">SAM Dashboard</a>
       <!-- Existing SAM customers. Points at the workspace sign-in page at the
            root of the app host, NOT at /admin/ (the operator's console). -->
@@ -828,7 +795,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 <div class="tab-bar-wrap">
   <div class="tab-bar">
     <button class="tab-btn active-ai" id="tab-automation" onclick="switchTab('automation')">
-      <span class="tab-icon blue"></span>Automation Services
+      <span class="tab-icon blue"></span>IT Support &amp; Security
     </button>
     <button class="tab-btn" id="tab-sam" onclick="switchTab('sam-dashboard')">
       <span class="tab-icon yellow"></span>SAM Dashboard
@@ -837,15 +804,15 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 </div>
 
 
-<!-- ═══ AUTOMATION SERVICES (LANDING) ═══ -->
+<!-- ═══ IT SUPPORT (LANDING) ═══ -->
 <div class="page active" id="page-automation">
 
   <div class="container">
     <div class="hero">
-      <h1>The paperwork isn't the work. It just <span class="hl-blue">takes as long</span>.</h1>
-      <p>Penni Tech automates the document work that eats your week — certified payroll, submittal registers, change orders, closeout. Built for contractors and small businesses across Washington, DC, Maryland, and Virginia.</p>
+      <h1>Small Business IT Support &amp; <span class="hl-blue">Security</span></h1>
+      <p>Penni Tech keeps small business technology running and protected across Washington, DC, Maryland, and Virginia — backed by 20 years of hands-on experience. A real person who answers, not a ticket queue.</p>
       <div class="hero-btns">
-        <a href="#contact" class="btn btn-blue">Book a 20-Minute Assessment</a>
+        <a href="#contact" class="btn btn-blue">Need IT Help? Let's Talk.</a>
       </div>
       <div class="facts">
         <div class="fact">
@@ -857,8 +824,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
           <div class="fact-v">Active small business entity, UEI Q3VTL5SPSU83</div>
         </div>
         <div class="fact">
-          <div class="fact-k">Fixed Price</div>
-          <div class="fact-v">Scoped, built, and live in three weeks</div>
+          <div class="fact-k">20 Years Experience</div>
+          <div class="fact-v">Hands-on IT and security work, not a call-center script</div>
         </div>
       </div>
     </div>
@@ -867,69 +834,48 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   <hr class="divider">
 
   <div class="container">
-    <div class="section" id="what-we-automate">
-      <span class="section-label blue">What We Automate</span>
-      <h2>The Jobs Nobody Wants to Do Twice</h2>
-      <p class="lead">These are the tasks that don't make you money but can't be skipped. They're also the ones a machine handles better than a person — because a machine doesn't get tired at page 300.</p>
+    <div class="section" id="services">
+      <span class="section-label blue">What We Do</span>
+      <h2>Keep It Running. Keep It Protected.</h2>
+      <p class="lead">Two things every small business needs from IT: technology that works, and technology that won't get you breached. We handle both — sized and priced for a small business, not an enterprise.</p>
 
-      <div class="shifts">
+      <div class="services-grid">
 
-        <div class="shift">
-          <div class="shift-head">
-            <h3>Submittal Registers</h3>
-            <span>Specialty trade contractors on commercial and institutional work</span>
-          </div>
-          <div class="shift-body">
-            <div class="shift-col now">
-              <span class="shift-tag">Right now</span>
-              <p>A project engineer reads 400 pages of specifications and types every required submittal into a spreadsheet. One to two days per project. Miss one and it turns into a back-charge or a schedule delay.</p>
-            </div>
-            <div class="shift-col after">
-              <span class="shift-tag">After</span>
-              <p>The spec goes in, the register comes out — every submittal with its section reference, type, and stated deadline, and the long-lead items flagged. Minutes instead of days, exported straight into Procore or your existing log.</p>
-            </div>
-          </div>
+        <div class="card">
+          <h3>IT Support &amp; Help Desk</h3>
+          <p>On-call help for the everyday problems that stall your team — slow machines, software issues, printers, connectivity, and anything in between.</p>
         </div>
 
-        <div class="shift">
-          <div class="shift-head">
-            <h3>Certified Payroll</h3>
-            <span>Anyone working Davis-Bacon or prevailing wage projects</span>
-          </div>
-          <div class="shift-body">
-            <div class="shift-col now">
-              <span class="shift-tag">Right now</span>
-              <p>Every week, on every job, somebody rebuilds WH-347 forms by hand from timecards. It has to reconcile exactly to payroll. Errors hold up payment and invite a closer look you don't want.</p>
-            </div>
-            <div class="shift-col after">
-              <span class="shift-tag">After</span>
-              <p>Timecards in, WH-347 out — reconciled, formatted for the awarding agency, ready to file. Every project, every week, without somebody's Friday disappearing into it.</p>
-            </div>
-          </div>
+        <div class="card">
+          <h3>Cybersecurity Hardening</h3>
+          <p>Multi-factor authentication, password policy, patching, endpoint protection, and phishing defense. The controls that stop the attacks small businesses actually get hit with.</p>
         </div>
 
-        <div class="shift">
-          <div class="shift-head">
-            <h3>Change Orders &amp; Closeout</h3>
-            <span>Document tracking from request through final payment</span>
-          </div>
-          <div class="shift-body">
-            <div class="shift-col now">
-              <span class="shift-tag">Right now</span>
-              <p>Documents live in email threads. Nobody's certain what's approved, what's still outstanding, or which missing piece of paper is holding up final payment on a job you finished two months ago.</p>
-            </div>
-            <div class="shift-col after">
-              <span class="shift-tag">After</span>
-              <p>Every document tracked from request to approval with a status anyone on the team can check. Closeout packages assemble themselves from what's already been collected.</p>
-            </div>
-          </div>
+        <div class="card">
+          <h3>Microsoft 365 Management</h3>
+          <p>Setup, licensing, email, and OneDrive/SharePoint — configured, secured, and maintained so your team's tools work the way they should.</p>
+        </div>
+
+        <div class="card">
+          <h3>Device Setup &amp; Troubleshooting</h3>
+          <p>New laptops and phones configured, encrypted, and ready on day one. Existing devices diagnosed and fixed when they start acting up.</p>
+        </div>
+
+        <div class="card">
+          <h3>Backup &amp; Recovery</h3>
+          <p>Backups that actually run, and that we actually test. Because the day you need one is a bad day to find out it stopped working in March.</p>
+        </div>
+
+        <div class="card">
+          <h3>AI Automation</h3>
+          <p>Optional, for businesses that want it: automating the repetitive document and data work that eats staff time.</p>
         </div>
 
       </div>
 
       <div class="band">
-        <h4>Not a contractor?</h4>
-        <p>The same thing applies anywhere documents move by hand. We build closing package assembly for title and settlement companies, and dues invoicing, renewals, and member record workflows for trade associations. If your team retypes information that already exists somewhere else, there's usually something here.</p>
+        <h4>Remote First, On-Site When It Counts</h4>
+        <p>Most issues get resolved remotely, the same day. When something needs hands-on attention, we come to you — anywhere in the DMV.</p>
       </div>
 
     </div>
@@ -944,20 +890,20 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
       <p class="lead">We're a small shop in Washington, DC. That's a real limitation and a real advantage, and it's worth being clear about both.</p>
       <div class="grid-2">
         <div class="card">
-          <h3>You work with the person building it</h3>
-          <p>No account manager, no handoff to a team you never meet. The person on your first call is the person writing the code and the person who picks up when something needs fixing.</p>
+          <h3>You work with the person fixing it</h3>
+          <p>No call center, no outsourced help desk, no ticket bouncing between departments. The person who answers is the person who solves it.</p>
         </div>
         <div class="card">
-          <h3>We build our own software</h3>
-          <p>SAM Dashboard is a business management platform we built and run ourselves. We're not reselling somebody else's tool with a markup — we build what your workflow actually needs.</p>
+          <h3>Security isn't a separate invoice</h3>
+          <p>MFA, patching, and tested backups are part of supporting your business properly — not an upgrade tier we sell you after something goes wrong.</p>
         </div>
         <div class="card">
           <h3>SAM registered small business</h3>
-          <p>Registered and active, UEI Q3VTL5SPSU83. If you work public or federally funded projects, we already understand the paperwork that comes attached.</p>
+          <p>Registered and active, UEI Q3VTL5SPSU83. If you work with public or federally funded organizations, we already understand the paperwork that comes attached.</p>
         </div>
         <div class="card">
-          <h3>See it before you commit</h3>
-          <p>Our submittal tool is built and running today. Send us a spec from a job you're bidding and we'll run it live on a screen share. No slides.</p>
+          <h3>Straight talk, fast answers</h3>
+          <p>Call or email and get a real answer today — including when the honest answer is that you don't need us for it.</p>
         </div>
       </div>
     </div>
@@ -968,28 +914,28 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   <div class="container">
     <div class="section" id="offer">
       <span class="section-label blue">The Offer</span>
-      <h2>Start With One Thing</h2>
-      <p class="lead">Not a platform, not a transformation, not a retainer. One workflow that's costing you real hours, automated and handed over.</p>
+      <h2>Start With a Straight Answer</h2>
+      <p class="lead">No long-term contract required up front. Just a clear look at what your business needs and what it costs to fix it.</p>
 
       <div class="offer">
-        <div class="offer-name">The Automation Pilot</div>
-        <div class="offer-line">One workflow. Scoped, built, tested against your real documents, and in your hands.</div>
+        <div class="offer-name">The IT &amp; Security Assessment</div>
+        <div class="offer-line">A no-cost review of your setup — what's working, what's exposed, and what it would take to fix it.</div>
         <div class="offer-terms">
           <div class="offer-term">
             <div class="t">Scope</div>
-            <div class="d">One workflow</div>
+            <div class="d">Systems and security</div>
           </div>
           <div class="offer-term">
             <div class="t">Timeline</div>
-            <div class="d">Three weeks</div>
+            <div class="d">20 minutes</div>
           </div>
           <div class="offer-term">
             <div class="t">Price</div>
-            <div class="d">Fixed, agreed up front</div>
+            <div class="d">Free, no obligation</div>
           </div>
         </div>
         <div class="offer-note">
-          <strong>Being early is worth something.</strong> We're taking a limited number of pilot clients at reduced rates in exchange for permission to write up the results as a case study. You get a better price and more of our attention than you would later. That's the trade, and we'd rather say it plainly than pretend the rate is a coincidence.
+          <strong>Ongoing support or a one-time fix — we'll tell you plainly which one you need.</strong> If a simple fix is all it takes, that's what we'll recommend, even if it means less work for us.
         </div>
       </div>
     </div>
@@ -1005,22 +951,22 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
         <div class="process-step">
           <div class="step-num">1</div>
           <h4>Twenty Minutes</h4>
-          <p>Tell us the task that eats the most time. We'll tell you straight whether it's worth automating — including when the answer is no.</p>
+          <p>Tell us what's slowing you down. We'll tell you straight what it takes to fix it — including when the answer is nothing.</p>
         </div>
         <div class="process-step">
           <div class="step-num">2</div>
-          <h4>Fixed Scope</h4>
-          <p>One workflow, a clear deliverable, a fixed price and a date. In writing before any work starts.</p>
+          <h4>Clear Scope</h4>
+          <p>A clear plan, a fixed price, and a timeline. In writing before any work starts.</p>
         </div>
         <div class="process-step">
           <div class="step-num">3</div>
-          <h4>Build &amp; Test</h4>
-          <p>We build against your real documents and your real process — not a clean demo version that falls apart on contact.</p>
+          <h4>Fix &amp; Secure</h4>
+          <p>We fix what's broken, configure what's missing, and close the security gaps we found — tailored to how your team actually works.</p>
         </div>
         <div class="process-step">
           <div class="step-num">4</div>
-          <h4>Handover</h4>
-          <p>It's yours. We train whoever runs it, document how it works, and stay reachable when something changes.</p>
+          <h4>Stay Reachable</h4>
+          <p>We walk your team through what changed, document it, and stay reachable when something comes up.</p>
         </div>
       </div>
     </div>
@@ -1031,8 +977,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   <div class="container">
     <div class="section" id="contact">
       <span class="section-label blue">Get in Touch</span>
-      <h2>What's Eating Your Week?</h2>
-      <p class="lead">Tell us the task, and we'll tell you whether it can be automated and roughly what that would take. Twenty minutes, no pitch. We reply within one business day.</p>
+      <h2>Need IT Help? Let's Talk.</h2>
+      <p class="lead">Tell us what's going on, and we'll tell you plainly what it takes to fix it. Twenty minutes, no pitch. We reply within one business day.</p>
       <div class="form-wrap">
         <form action="https://formspree.io/f/xojpvoqd" method="POST" onsubmit="return submitForm(this, 'blue')">
           <div class="form-field">
@@ -1049,21 +995,21 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
           </div>
           <div class="form-field">
             <select name="interest">
-              <option value="" disabled selected>What's the task?</option>
-              <option value="Certified Payroll / WH-347">Certified Payroll / WH-347</option>
-              <option value="Submittal Registers">Submittal Registers</option>
-              <option value="Change Orders &amp; Closeout">Change Orders &amp; Closeout</option>
-              <option value="Invoices, Contracts &amp; Forms">Invoices, Contracts &amp; Forms</option>
-              <option value="Closing Document Assembly">Closing Document Assembly (Title &amp; Settlement)</option>
-              <option value="Membership &amp; Renewals">Membership &amp; Renewals (Associations)</option>
-              <option value="Something Else">Something Else</option>
+              <option value="" disabled selected>What's the issue?</option>
+              <option value="IT Support / Troubleshooting">IT Support / Troubleshooting</option>
+              <option value="Cybersecurity / Security Concern">Cybersecurity / Security Concern</option>
+              <option value="Microsoft 365 Setup or Management">Microsoft 365 Setup or Management</option>
+              <option value="Device Setup or Repair">Device Setup or Repair</option>
+              <option value="Backup &amp; Recovery">Backup &amp; Recovery</option>
+              <option value="Ongoing Support">Ongoing Support / Managed IT</option>
+              <option value="AI Automation">AI Automation</option>
               <option value="Not Sure Yet">Not Sure Yet — I Need Guidance</option>
             </select>
           </div>
           <div class="form-field">
-            <textarea name="message" placeholder="What does this task look like today? Who does it, how often, and roughly how long does it take?" rows="4" required></textarea>
+            <textarea name="message" placeholder="What's going on? What's broken, how often it happens, and what device or system it affects." rows="4" required></textarea>
           </div>
-          <input type="hidden" name="_subject" value="Penni Tech — New Automation Inquiry">
+          <input type="hidden" name="_subject" value="Penni Tech — New IT &amp; Security Inquiry">
           <button type="submit" class="form-submit blue">Send</button>
         </form>
       </div>
@@ -1072,8 +1018,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 
   <div class="container">
     <div class="cta-banner dark">
-      <h2>Bring Us a Spec and We'll Run It</h2>
-      <p>Send a specification from a job you're bidding. We'll build the submittal register live while you watch.</p>
+      <h2>Need IT Help? Let's Talk.</h2>
+      <p>Whether it's one stubborn issue, a security worry, or ongoing support for your whole team, we'll give you a straight answer today.</p>
       <a href="#contact" class="btn btn-blue">Get in Touch</a>
     </div>
   </div>
