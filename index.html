@@ -412,6 +412,15 @@ nav {
 .form-field select:focus { border-color: #999; }
 .form-field textarea { resize: vertical; }
 
+/* A <select> has no ::placeholder, so its prompt option rendered in the field's
+   own near-black while the inputs beside it showed the browser's default grey.
+   Both are pinned to --muted here so every field in the form reads as one set.
+   The .sam-form-card placeholder rule is more specific and is unaffected. */
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--muted); opacity: 1; }
+.form-field select.is-empty { color: var(--muted); }
+.form-field select option { color: var(--dark); }
+
 .form-submit {
   width: 100%;
   padding: 13px 28px;
@@ -1149,6 +1158,18 @@ function scrollToContact() {
 function toggleMobileMenu() {
   document.getElementById('navLinks').classList.toggle('open');
 }
+
+// Greys a select while it is still showing its prompt option, then hands it
+// back to the normal text color once a real choice is made. Done in JS rather
+// than :invalid because these selects are intentionally not required.
+(function () {
+  var selects = document.querySelectorAll('.form-field select');
+  Array.prototype.forEach.call(selects, function (el) {
+    function sync() { el.classList.toggle('is-empty', !el.value); }
+    sync();
+    el.addEventListener('change', sync);
+  });
+})();
 
 function submitForm(form, color) {
   var submitBtn = form.querySelector('.form-submit');
