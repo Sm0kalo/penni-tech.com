@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>linkding on AWS: launch and setup guide | Penni Tech</title>
+<meta name="description" content="How to launch the Penni Tech linkding image on AWS, sign in over HTTPS, and save, import, tag and search bookmarks or use the REST API.">
+<link rel="canonical" href="https://penni-tech.com/guides/linkding/">
+<link rel="stylesheet" href="../guide.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to run linkding on AWS with the Penni Tech AMI",
+ "description": "How to launch the Penni Tech linkding image on AWS, sign in over HTTPS, and save, import, tag and search bookmarks or use the REST API.",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "name": "Subscribe and launch",
+   "text": "Subscribe to the product, then launch it from the AWS Marketplace website or the EC2 console."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Choose a key pair",
+   "text": "Pick an EC2 key pair. You need it to connect over SSH and read your first-login password."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Open the right ports",
+   "text": "In the security group, allow 443/tcp for the application. Allowing 80/tcp is optional and only redirects to HTTPS. Allow 22/tcp for SSH, restricted to your own address, and keep the default outbound rule so automatic security updates can reach the Amazon Linux repositories."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Wait for first boot",
+   "text": "Give the instance about two minutes to finish its first-boot configuration. During this step it creates its TLS certificate and administrator password."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Read your credentials",
+   "text": "Connect over SSH as ec2-user and print the credentials file. It holds the URL, the admin username (admin) and the password created on your instance."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Sign in",
+   "text": "Browse to https://<instance-public-dns>/ and sign in as admin. The certificate is self-signed, so expect a browser warning the first time."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Change the password",
+   "text": "Change the administrator password right away at https://<instance-public-dns>/change-password/. You can also reach it from the Settings page."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Open Settings",
+   "text": "Sign in and open the Settings page. It shows the API token that linkding creates for your user, and it offers the bookmarklet."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Install the browser extension",
+   "text": "Install the linkding browser extension from the Mozilla Addon Store or the Chrome Web Store. It lets you add bookmarks quickly and search them from the browser's address bar."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Connect the extension",
+   "text": "Follow the extension's setup screen to connect it to https://<instance-public-dns>/."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Or add the bookmarklet",
+   "text": "If you prefer not to install an extension, add the bookmarklet offered in Settings to your browser. Clicking it takes you to your instance to save the page you are viewing."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Choose where titles come from",
+   "text": "By default the server fetches each page's title and description, which needs outbound internet access. The extension's *Use browser metadata* option and the bookmarklet settings let you use the metadata from the page in your browser instead."
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a href="https://penni-tech.com/guides/">Penni Tech guides</a><span>How-to pages for Penni Tech AMIs</span></div></header>
+<main class="wrap">
+<h1>How to run linkding on AWS with the Penni Tech AMI</h1>
+<p class="lede">A step-by-step guide to the linkding AMI from Penni Tech LLC on AWS Marketplace: launch, first sign-in, first setup and updates.</p>
+<p class="cta"><a class="button" href="https://aws.amazon.com/marketplace/pp/prodview-kb6qrt7xgwwsk">Launch on AWS Marketplace</a></p>
+
+<h2 id="what">What linkding does</h2>
+<p>linkding is an open source, self-hosted bookmark manager that lets you save links with tags and notes, then search and filter them.</p>
+<p>You work with your bookmarks through its web interface, the linkding browser extension, a bookmarklet, or its REST API.</p>
+<p>This image serves linkding over HTTPS through an nginx reverse proxy, creates a unique administrator password on your instance at first boot, and includes commands for status, logs, backup, restore and upgrade.</p>
+
+<h2 id="who">Who it's for</h2>
+<p>People who want to keep their bookmarks on a server they control instead of inside one browser.</p>
+<p>Teams and developers who want to save and query links from scripts or other tools through a REST API.</p>
+
+<h2 id="inside">What's in the AMI</h2>
+<table>
+<thead><tr><th>Component</th><th>Version</th></tr></thead>
+<tbody>
+<tr><td>linkding</td><td>1.47.0</td></tr>
+<tr><td>nginx</td><td>1.30.5</td></tr>
+<tr><td>Docker Engine</td><td>25.0.16</td></tr>
+<tr><td>Docker Compose</td><td>5.6.0</td></tr>
+<tr><td>Amazon Linux</td><td>2023.12.20261012</td></tr>
+</tbody>
+</table>
+<p>Supported instance types: <code>t3.medium</code>, <code>t3.large</code>, <code>t3.xlarge</code>, <code>m6i.large</code>, <code>m6i.xlarge</code>.</p>
+
+<h2 id="launch">Launch it from the listing</h2>
+<ol class="steps">
+<li><strong>Subscribe and launch</strong> Subscribe to the product, then launch it from the AWS Marketplace website or the EC2 console.</li>
+<li><strong>Choose a key pair</strong> Pick an EC2 key pair. You need it to connect over SSH and read your first-login password.</li>
+<li><strong>Open the right ports</strong> In the security group, allow 443/tcp for the application. Allowing 80/tcp is optional and only redirects to HTTPS. Allow 22/tcp for SSH, restricted to your own address, and keep the default outbound rule so automatic security updates can reach the Amazon Linux repositories.</li>
+<li><strong>Wait for first boot</strong> Give the instance about two minutes to finish its first-boot configuration. During this step it creates its TLS certificate and administrator password.</li>
+<li><strong>Read your credentials</strong> Connect over SSH as <code>ec2-user</code> and print the credentials file. It holds the URL, the admin username (<code>admin</code>) and the password created on your instance.<pre><code>sudo cat /root/linkding-credentials.txt</code></pre></li>
+<li><strong>Sign in</strong> Browse to <code>https://&lt;instance-public-dns&gt;/</code> and sign in as <code>admin</code>. The certificate is self-signed, so expect a browser warning the first time.</li>
+<li><strong>Change the password</strong> Change the administrator password right away at <code>https://&lt;instance-public-dns&gt;/change-password/</code>. You can also reach it from the Settings page.</li>
+</ol>
+
+<h2 id="first-setup">First setup</h2>
+<p>The quickest way to start saving links is to connect your browser to linkding. You can install the linkding browser extension or add the bookmarklet, both from steps that start on the Settings page.</p>
+<ol class="steps">
+<li><strong>Open Settings</strong> Sign in and open the Settings page. It shows the API token that linkding creates for your user, and it offers the bookmarklet.</li>
+<li><strong>Install the browser extension</strong> Install the linkding browser extension from the Mozilla Addon Store or the Chrome Web Store. It lets you add bookmarks quickly and search them from the browser's address bar.</li>
+<li><strong>Connect the extension</strong> Follow the extension's setup screen to connect it to <code>https://&lt;instance-public-dns&gt;/</code>.</li>
+<li><strong>Or add the bookmarklet</strong> If you prefer not to install an extension, add the bookmarklet offered in Settings to your browser. Clicking it takes you to your instance to save the page you are viewing.</li>
+<li><strong>Choose where titles come from</strong> By default the server fetches each page's title and description, which needs outbound internet access. The extension's *Use browser metadata* option and the bookmarklet settings let you use the metadata from the page in your browser instead.</li>
+</ol>
+<h2 id="use">Day-to-day use</h2>
+<h3>Import bookmarks</h3>
+<p>Open the general settings and find the Import section. Click *Choose file*, select an HTML bookmarks file, then click *Import*.</p>
+<p>The Export section on the same page has a *Download* button that saves all your bookmarks as an HTML file. You can use that file to move bookmarks between linkding installations.</p>
+
+<h3>Tags and search</h3>
+<p>Give each bookmark tags and notes when you save it, then find it again with the search bar. A plain word matches the title, description, notes and URL. Put a phrase in quotes to match it exactly.</p>
+<p>Tags start with <code>#</code>. Combine expressions with <code>and</code>, <code>or</code> and <code>not</code>, and use parentheses to group them. Words written side by side are joined with <code>and</code>. Search is not case-sensitive. If you turn on the lax tag search mode in Settings, the <code>#</code> prefix becomes optional.</p>
+<pre><code>history rome #book
+"history of rome" #book
+rome (#article or #book)
+history rome not #article</code></pre>
+<h3>Use the REST API</h3>
+<p>linkding creates an API token for each user, and you can copy yours from the Settings page. Send it in an <code>Authorization</code> header with the form <code>Token &lt;your-api-token&gt;</code>.</p>
+<p>The API lets you list, create, update, archive and delete bookmarks, and work with tags, bundles and bookmark assets. The <code>q</code> parameter on the bookmark list filters results with the same search syntax as the web interface.</p>
+<pre><code>curl -m 10 --retry 5 -H "Authorization: Token &lt;your-api-token&gt;" https://&lt;instance-public-dns&gt;/api/bookmarks/</code></pre>
+<h3>Clients and the self-signed certificate</h3>
+<p>The instance creates a self-signed certificate at first boot. Your browser lets you accept it, but the linkding browser extension and API clients such as <code>curl</code> may refuse to connect until the server presents a certificate they accept.</p>
+<p>To fix this, install your own certificate as described in the usage instructions section YOUR OWN TLS CERTIFICATE. If you serve linkding on your own domain, that section also shows how to add the domain to <code>LD_CSRF_TRUSTED_ORIGINS</code> in <code>/etc/linkding/linkding.env</code>.</p>
+<pre><code>sudo install -m 0644 fullchain.pem /etc/pki/nginx/server.crt
+sudo install -m 0600 privkey.pem /etc/pki/nginx/private/server.key
+sudo systemctl reload nginx</code></pre>
+
+<h2 id="updates">Keeping it updated</h2>
+<p>The instance installs Amazon Linux security updates automatically, and because nginx is an Amazon Linux package, those updates cover it too.</p>
+<p>The linkding container is not updated automatically, so it only changes when you run <code>sudo linkding-upgrade</code>, which rebuilds the image with current security updates or moves to a new pinned release.</p>
+<p>The upgrade command takes a backup first and keeps the previous Dockerfile so you can roll back. You can also take your own backup at any time with <code>sudo linkding-backup</code>, which writes one archive to <code>/var/backups/linkding</code> by default.</p>
+<p>To move to a new instance, run <code>linkding-backup</code> on the old one, then <code>linkding-restore &lt;archive&gt; --keep-env</code> on the new one.</p>
+
+<h2 id="cost">Cost</h2>
+<div class="panel">
+<p>Software: $0.05 per hour. You also pay AWS for the EC2 instance and storage, at standard rates for the instance type you choose.</p>
+<p>See the <a href="https://aws.amazon.com/marketplace/pp/prodview-kb6qrt7xgwwsk">listing</a> for current pricing.</p>
+</div>
+
+<h2 id="more">More information</h2>
+<ul>
+<li>Full launch and operating instructions are in the usage instructions on the <a href="https://aws.amazon.com/marketplace/pp/prodview-kb6qrt7xgwwsk">listing</a>, and on the instance in <code>/usr/share/doc/linkding/README.md</code>.</li>
+<li>The upstream project: <a href="https://github.com/sissbruecker/linkding">github.com/sissbruecker/linkding</a>.</li>
+</ul>
+<p class="cta"><a class="button" href="https://aws.amazon.com/marketplace/pp/prodview-kb6qrt7xgwwsk">Launch on AWS Marketplace</a></p>
+</main>
+<footer class="site"><div class="wrap">
+<p>Penni Tech LLC is not affiliated with the linkding project, its authors, or Amazon Web Services.</p>
+<p>Questions about this AMI: <a href="mailto:info@penni-tech.com">info@penni-tech.com</a>. Penni Tech aims to reply within 2 business days.</p>
+<p><a href="https://penni-tech.com/">Penni Tech LLC</a></p>
+</div></footer>
+</body>
+</html>
