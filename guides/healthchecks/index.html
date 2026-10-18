@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Healthchecks on AWS: launch and setup guide | Penni Tech</title>
+<meta name="description" content="How to launch Healthchecks on AWS, sign in over HTTPS, and monitor cron jobs and backups with ping URLs, start signals and failure alerts.">
+<link rel="canonical" href="https://penni-tech.com/guides/healthchecks/">
+<link rel="stylesheet" href="../guide.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to run Healthchecks on AWS with the Penni Tech AMI",
+ "description": "How to launch Healthchecks on AWS, sign in over HTTPS, and monitor cron jobs and backups with ping URLs, start signals and failure alerts.",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "name": "Subscribe and launch",
+   "text": "Subscribe to the product, then launch it from the AWS Marketplace website or the EC2 console."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Choose a key pair",
+   "text": "Pick an EC2 key pair you hold the private key for. You need it to read your first-login password over SSH."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Open the right ports",
+   "text": "In the security group, allow 443/tcp for the application. Port 80/tcp is optional and only redirects to HTTPS, and port 22/tcp is needed once to read the credential, so restrict it to your own address. Keep the default outbound rule so automatic security updates can reach the Amazon Linux repositories."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Wait for first boot",
+   "text": "Give the instance about two minutes to finish its first-boot configuration. This is when it creates its own secrets and TLS certificate."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Read the credentials file",
+   "text": "SSH in as ec2-user and print the root-only credentials file. It holds the URL, the admin email and the first-login password for your instance."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Sign in",
+   "text": "Browse to https://<instance-public-dns>/ and sign in with the admin email and password. The certificate is self-signed, so expect a browser warning."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Change the password",
+   "text": "Change the password right away, either under Account > Settings > Change password or with sudo healthchecks-passwd over SSH. Self-registration is disabled, so visitors cannot sign up on their own."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Create a check",
+   "text": "In the web interface, create a new check for the job. Give it a name, and optionally tags and a description that say what the job does and what to do when it fails."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Set the schedule",
+   "text": "Choose a Simple schedule and set Period to how often the job runs, or choose Cron and enter the same expression and server time zone as the job. Set Grace Time a little above the time the job normally takes."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Copy the ping URL",
+   "text": "Copy the check's ping URL. It starts with your instance's HTTPS address."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Add curl to the cron job",
+   "text": "Append a curl call to the job's line in the crontab. The && means the ping is sent only when the job exits successfully, and the options make curl retry, time out and stay quiet unless there is an error. If the job's machine does not yet trust your instance's certificate, add --cacert as described in the certificate section below."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Check that the ping arrives",
+   "text": "After the job runs, open the check in the web interface and confirm the ping shows up in its events. If you prefer a short crontab line, you can put the curl call as the last line of the script instead."
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap"><a href="https://penni-tech.com/guides/">Penni Tech guides</a><span>How-to pages for Penni Tech AMIs</span></div></header>
+<main class="wrap">
+<h1>How to run Healthchecks on AWS with the Penni Tech AMI</h1>
+<p class="lede">A step-by-step guide to the Healthchecks AMI from Penni Tech LLC on AWS Marketplace: launch, first sign-in, first setup and updates.</p>
+<p class="cta"><a class="button" href="https://aws.amazon.com/marketplace/pp/prodview-dwj4iommoyuvq">Launch on AWS Marketplace</a></p>
+
+<h2 id="what">What Healthchecks does</h2>
+<p>Healthchecks watches cron jobs, backups and other scheduled tasks.</p>
+<p>Each job gets its own ping URL, and the job calls that URL every time it runs.</p>
+<p>If a ping does not arrive on schedule, the check is flagged late and then down, and Healthchecks sends you an alert.</p>
+
+<h2 id="who">Who it's for</h2>
+<p>Admins and small teams who run batch jobs, backups and scheduled scripts and need to know when one stops running.</p>
+<p>People who want the monitor on their own AWS account, reachable over HTTPS, with no external service needed to run it.</p>
+
+<h2 id="inside">What's in the AMI</h2>
+<table>
+<thead><tr><th>Component</th><th>Version</th></tr></thead>
+<tbody>
+<tr><td>Healthchecks</td><td>4.4</td></tr>
+<tr><td>nginx</td><td>1.30.5</td></tr>
+<tr><td>PostgreSQL</td><td>17.11</td></tr>
+<tr><td>Docker Engine</td><td>25.0.14</td></tr>
+<tr><td>Docker Compose</td><td>5.6.0</td></tr>
+<tr><td>Amazon Linux</td><td>2023.12.20261012</td></tr>
+</tbody>
+</table>
+<p>Supported instance types: <code>t3.medium</code>, <code>t3.large</code>, <code>t3.xlarge</code>, <code>m6i.large</code>, <code>m6i.xlarge</code>. The usage instructions recommend <code>t3.medium</code>.</p>
+
+<h2 id="launch">Launch it from the listing</h2>
+<ol class="steps">
+<li><strong>Subscribe and launch</strong> Subscribe to the product, then launch it from the AWS Marketplace website or the EC2 console.</li>
+<li><strong>Choose a key pair</strong> Pick an EC2 key pair you hold the private key for. You need it to read your first-login password over SSH.</li>
+<li><strong>Open the right ports</strong> In the security group, allow 443/tcp for the application. Port 80/tcp is optional and only redirects to HTTPS, and port 22/tcp is needed once to read the credential, so restrict it to your own address. Keep the default outbound rule so automatic security updates can reach the Amazon Linux repositories.</li>
+<li><strong>Wait for first boot</strong> Give the instance about two minutes to finish its first-boot configuration. This is when it creates its own secrets and TLS certificate.</li>
+<li><strong>Read the credentials file</strong> SSH in as ec2-user and print the root-only credentials file. It holds the URL, the admin email and the first-login password for your instance.<pre><code>sudo cat /root/healthchecks-credentials.txt</code></pre></li>
+<li><strong>Sign in</strong> Browse to <code>https://&lt;instance-public-dns&gt;/</code> and sign in with the admin email and password. The certificate is self-signed, so expect a browser warning.</li>
+<li><strong>Change the password</strong> Change the password right away, either under Account &gt; Settings &gt; Change password or with <code>sudo healthchecks-passwd</code> over SSH. Self-registration is disabled, so visitors cannot sign up on their own.<pre><code>sudo healthchecks-passwd</code></pre></li>
+</ol>
+
+<h2 id="first-setup">First setup</h2>
+<p>The first useful thing to do is monitor one cron job. You create a check, copy its ping URL, and add one curl call to the job.</p>
+<ol class="steps">
+<li><strong>Create a check</strong> In the web interface, create a new check for the job. Give it a name, and optionally tags and a description that say what the job does and what to do when it fails.</li>
+<li><strong>Set the schedule</strong> Choose a Simple schedule and set Period to how often the job runs, or choose Cron and enter the same expression and server time zone as the job. Set Grace Time a little above the time the job normally takes.</li>
+<li><strong>Copy the ping URL</strong> Copy the check's ping URL. It starts with your instance's HTTPS address.</li>
+<li><strong>Add curl to the cron job</strong> Append a curl call to the job's line in the crontab. The <code>&amp;&amp;</code> means the ping is sent only when the job exits successfully, and the options make curl retry, time out and stay quiet unless there is an error. If the job's machine does not yet trust your instance's certificate, add <code>--cacert</code> as described in the certificate section below.<pre><code>@daily /path/to/backup.sh &amp;&amp; curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;</code></pre></li>
+<li><strong>Check that the ping arrives</strong> After the job runs, open the check in the web interface and confirm the ping shows up in its events. If you prefer a short crontab line, you can put the curl call as the last line of the script instead.</li>
+</ol>
+<h2 id="use">Day-to-day use</h2>
+<h3>Let the job's machine trust your certificate</h3>
+<p>Your ping URLs use the instance's HTTPS address, and the certificate is self-signed. curl rejects a certificate it does not trust, so the ping would not arrive.</p>
+<p>You have two ways to fix this. You can install your own TLS certificate on the instance, as shown in the usage instructions section YOUR OWN TLS CERTIFICATE. Or you can copy the instance's certificate from <code>/etc/pki/nginx/server.crt</code> to the job's machine and point curl at that copy with <code>--cacert</code>.</p>
+<p>If you later rotate the certificate, as described in ENCRYPTION AND KEYS, copy the new file to the job's machine again.</p>
+<pre><code>scp ec2-user@&lt;instance-public-dns&gt;:/etc/pki/nginx/server.crt /path/to/server.crt
+curl -fsS -m 10 --retry 5 --cacert /path/to/server.crt -o /dev/null &lt;your-ping-url&gt;</code></pre>
+<h3>Measure how long a backup takes</h3>
+<p>Send a ping to the ping URL with <code>/start</code> appended before the backup begins, and a normal ping after it succeeds. Healthchecks shows the check as Started and records the time between the start and success events as the run time, which appears in the list of checks.</p>
+<p>If a start signal arrives but no success signal follows within the Grace Time, Healthchecks marks the check down and sends alerts. That catches a backup that hangs, not just one that never starts. Set Grace Time above the backup's normal run time.</p>
+<pre><code>#!/bin/sh
+curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;/start
+/path/to/backup.sh &amp;&amp; curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;</code></pre>
+<h3>Report a failure right away</h3>
+<p>Waiting for a missed ping takes time. To be told as soon as a job fails, append <code>/fail</code> to the ping URL and call it when the job hits an error.</p>
+<p>You can also append the job's exit status instead, as in <code>&lt;your-ping-url&gt;/$?</code>. Healthchecks treats an exit status of zero as success and anything else as a failure. In scripts with pipelines, use <code>set -o pipefail</code> so a failure early in the pipeline is not hidden.</p>
+<pre><code>#!/bin/sh
+curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;/start
+if /path/to/backup.sh; then
+  curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;
+else
+  curl -fsS -m 10 --retry 5 -o /dev/null &lt;your-ping-url&gt;/fail
+fi</code></pre>
+<h3>What happens when a ping is late</h3>
+<p>When a ping does not arrive on schedule, the check goes late. Healthchecks waits for the Grace Time, and if there is still no ping it marks the check down and sends alerts through the integrations turned on for that check. The Checks page shows which integrations are active for each check, and you can click the icons to turn them on or off.</p>
+<p>Webhook and chat integrations work as is. Email alerts need an SMTP server that you supply. The usage instructions section EMAIL NEEDS YOUR SMTP SERVER lists the settings to add to the env file, after which you restart the service.</p>
+<pre><code>sudo systemctl restart healthchecks</code></pre>
+
+<h2 id="updates">Keeping it updated</h2>
+<p>Amazon Linux security updates are applied automatically, and they cover nginx and PostgreSQL too because both are Amazon Linux packages.</p>
+<p>The application container is not updated automatically, so your deployment does not change underneath you. Run <code>sudo healthchecks-upgrade</code> when you choose to rebuild it with current security updates or move to a new pinned release.</p>
+<p>The upgrade command takes a backup first and keeps the previous Dockerfile so you can roll back. You can also run <code>sudo healthchecks-backup</code> yourself before any change and copy the archive off the instance, keeping in mind that it contains secrets.</p>
+
+<h2 id="cost">Cost</h2>
+<div class="panel">
+<p>Software: $0.05 per hour. You also pay AWS for the EC2 instance and storage, at standard rates for the instance type you choose.</p>
+<p>See the <a href="https://aws.amazon.com/marketplace/pp/prodview-dwj4iommoyuvq">listing</a> for current pricing.</p>
+</div>
+
+<h2 id="more">More information</h2>
+<ul>
+<li>Full launch and operating instructions are in the usage instructions on the <a href="https://aws.amazon.com/marketplace/pp/prodview-dwj4iommoyuvq">listing</a>, and on the instance in <code>/usr/share/doc/healthchecks/README.md</code>.</li>
+<li>The upstream project: <a href="https://github.com/healthchecks/healthchecks">github.com/healthchecks/healthchecks</a>.</li>
+</ul>
+<p class="cta"><a class="button" href="https://aws.amazon.com/marketplace/pp/prodview-dwj4iommoyuvq">Launch on AWS Marketplace</a></p>
+</main>
+<footer class="site"><div class="wrap">
+<p>Penni Tech LLC is not affiliated with the Healthchecks project, its authors, or Amazon Web Services.</p>
+<p>Questions about this AMI: <a href="mailto:info@penni-tech.com">info@penni-tech.com</a>. Penni Tech aims to reply within 2 business days.</p>
+<p><a href="https://penni-tech.com/">Penni Tech LLC</a></p>
+</div></footer>
+</body>
+</html>
