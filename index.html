@@ -99,7 +99,7 @@ nav {
 
 .nav-cta:hover { background: #111111 !important; color: #ffffff !important; }
 
-/* Sign-in for existing SAM customers. Quieter than the CTA on purpose: the
+/* Sign-in for existing BAMA customers. Quieter than the CTA on purpose: the
    page's job is still to convert new visitors, and someone who already has a
    workspace knows what they are looking for. */
 .nav-login {
@@ -147,7 +147,7 @@ nav {
 
 .tab-btn:hover { color: var(--dark); }
 .tab-btn.active-ai { color: var(--blue-dark); border-bottom-color: var(--accent-blue); }
-.tab-btn.active-sam { color: var(--yellow-dark); border-bottom-color: var(--accent-yellow); }
+.tab-btn.active-bama { color: var(--yellow-dark); border-bottom-color: var(--accent-yellow); }
 
 .tab-icon {
   display: inline-block;
@@ -415,7 +415,7 @@ nav {
 /* A <select> has no ::placeholder, so its prompt option rendered in the field's
    own near-black while the inputs beside it showed the browser's default grey.
    Both are pinned to --muted here so every field in the form reads as one set.
-   The .sam-form-card placeholder rule is more specific and is unaffected. */
+   The .bama-form-card placeholder rule is more specific and is unaffected. */
 .form-field input::placeholder,
 .form-field textarea::placeholder { color: var(--muted); opacity: 1; }
 .form-field select.is-empty { color: var(--muted); }
@@ -492,14 +492,14 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 .footer-right a { color: #aaa; text-decoration: none; }
 .footer-right a:hover { color: var(--body); }
 
-/* ═══ SAM DASHBOARD ═══ */
-.sam-page {
+/* ═══ BAMA DASHBOARD ═══ */
+.bama-page {
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEC 35%, #FFFFFF 100%);
 }
 
-.sam-page::before {
+.bama-page::before {
   content: '';
   position: absolute;
   top: -260px;
@@ -512,7 +512,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   z-index: 0;
 }
 
-.sam-page::after {
+.bama-page::after {
   content: '';
   position: absolute;
   bottom: -200px;
@@ -524,14 +524,23 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   z-index: 0;
 }
 
-.sam-hero {
+.bama-hero {
   position: relative;
   z-index: 1;
   text-align: center;
   padding: 5rem 0 2rem;
 }
 
-.sam-eyebrow {
+.bama-badge {
+  width: 84px;
+  height: 84px;
+  border-radius: 22%;
+  display: block;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 28px rgba(245,184,0,0.25);
+}
+
+.bama-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -548,21 +557,21 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   box-shadow: 0 4px 16px rgba(245,184,0,0.08);
 }
 
-.sam-eyebrow-dot {
+.bama-eyebrow-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--accent-yellow);
   box-shadow: 0 0 10px var(--accent-yellow);
-  animation: samPulse 2s ease-in-out infinite;
+  animation: bamaPulse 2s ease-in-out infinite;
 }
 
-@keyframes samPulse {
+@keyframes bamaPulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(0.85); }
 }
 
-.sam-hero h1 {
+.bama-hero h1 {
   font-family: var(--font-display);
   font-size: 64px;
   font-weight: 400;
@@ -572,7 +581,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   margin-bottom: 0.5rem;
 }
 
-.sam-hero h1 .sam-mark {
+.bama-hero h1 .bama-mark {
   background: linear-gradient(135deg, #FFC93C 0%, #f5b800 35%, #E89400 70%, #c97400 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -581,7 +590,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   filter: drop-shadow(0 4px 18px rgba(245,184,0,0.35));
 }
 
-.sam-subtitle {
+.bama-subtitle {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 2.5px;
@@ -592,21 +601,21 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 
 /* Sits under the hero lead: this tab is written for people requesting access,
    which left an existing customer with nowhere to go from the site at all. */
-.sam-hero p.sam-signin {
+.bama-hero p.bama-signin {
   margin: 1.1rem auto 0;
   font-size: 14px;
   color: var(--muted);
 }
-.sam-hero p.sam-signin a {
+.bama-hero p.bama-signin a {
   color: #1a1a1a;
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid rgba(26,26,26,0.25);
   padding-bottom: 1px;
 }
-.sam-hero p.sam-signin a:hover { border-bottom-color: #1a1a1a; }
+.bama-hero p.bama-signin a:hover { border-bottom-color: #1a1a1a; }
 
-.sam-hero p.sam-lead {
+.bama-hero p.bama-lead {
   font-size: 19px;
   color: var(--body);
   line-height: 1.55;
@@ -615,7 +624,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   font-weight: 400;
 }
 
-.sam-form-card {
+.bama-form-card {
   position: relative;
   z-index: 1;
   max-width: 540px;
@@ -632,9 +641,9 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
-.sam-form-title { text-align: center; margin-bottom: 1.75rem; }
+.bama-form-title { text-align: center; margin-bottom: 1.75rem; }
 
-.sam-form-title h3 {
+.bama-form-title h3 {
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 400;
@@ -643,19 +652,19 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   margin-bottom: 0.4rem;
 }
 
-.sam-form-title p { font-size: 13.5px; color: var(--muted); }
+.bama-form-title p { font-size: 13.5px; color: var(--muted); }
 
 /* Paired fields (first/last name, state/zip). The mobile override that
    collapses this to one column lives in the @media block below; without this
    base rule the pair would never form two columns on desktop. */
-.sam-grid-2 {
+.bama-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-bottom: 14px;
 }
 
-.sam-form-card .form-field input {
+.bama-form-card .form-field input {
   border-radius: 14px;
   padding: 15px 18px;
   background: rgba(0,0,0,0.03);
@@ -666,15 +675,15 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   transition: all 0.25s ease;
 }
 
-.sam-form-card .form-field input::placeholder { color: #9a9a9a; font-weight: 400; }
+.bama-form-card .form-field input::placeholder { color: #9a9a9a; font-weight: 400; }
 
-.sam-form-card .form-field input:focus {
+.bama-form-card .form-field input:focus {
   background: var(--white);
   border-color: var(--accent-yellow);
   box-shadow: 0 0 0 4px rgba(245,184,0,0.15);
 }
 
-.sam-form-card .form-submit {
+.bama-form-card .form-submit {
   border-radius: 999px;
   padding: 16px 28px;
   font-size: 15px;
@@ -689,7 +698,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   letter-spacing: 0.01em;
 }
 
-.sam-form-card .form-submit:hover {
+.bama-form-card .form-submit:hover {
   transform: translateY(-1.5px);
   box-shadow:
     0 14px 32px rgba(245,184,0,0.45),
@@ -697,25 +706,26 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   color: #1A1100;
 }
 
-.sam-form-card .form-submit:active { transform: translateY(0); }
-.sam-form-card .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+.bama-form-card .form-submit:active { transform: translateY(0); }
+.bama-form-card .form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
 @media (max-width: 768px) {
-  .sam-hero { padding: 3.5rem 0 1.25rem; }
-  .sam-hero h1 { font-size: 56px; letter-spacing: -0.03em; }
-  .sam-subtitle { font-size: 11px; letter-spacing: 2px; margin-bottom: 1.5rem; }
-  .sam-hero p.sam-lead { font-size: 17px; padding: 0 0.5rem; }
-  .sam-form-card { margin: 2rem 0.5rem 3.5rem; padding: 2rem 1.5rem; border-radius: 24px; }
-  .sam-form-title h3 { font-size: 22px; }
-  .sam-form-card .form-field input { padding: 14px 16px; font-size: 16px; }
-  .sam-form-card .form-submit { padding: 16px 24px; font-size: 15px; }
-  .sam-page::before { width: 700px; height: 700px; top: -150px; }
-  .sam-page::after { width: 380px; height: 380px; }
+  .bama-hero { padding: 3.5rem 0 1.25rem; }
+  .bama-badge { width: 64px; height: 64px; margin-bottom: 1.1rem; }
+  .bama-hero h1 { font-size: 56px; letter-spacing: -0.03em; }
+  .bama-subtitle { font-size: 11px; letter-spacing: 2px; margin-bottom: 1.5rem; }
+  .bama-hero p.bama-lead { font-size: 17px; padding: 0 0.5rem; }
+  .bama-form-card { margin: 2rem 0.5rem 3.5rem; padding: 2rem 1.5rem; border-radius: 24px; }
+  .bama-form-title h3 { font-size: 22px; }
+  .bama-form-card .form-field input { padding: 14px 16px; font-size: 16px; }
+  .bama-form-card .form-submit { padding: 16px 24px; font-size: 15px; }
+  .bama-page::before { width: 700px; height: 700px; top: -150px; }
+  .bama-page::after { width: 380px; height: 380px; }
 }
 
 @media (max-width: 380px) {
-  .sam-hero h1 { font-size: 48px; }
-  .sam-form-card { padding: 1.75rem 1.25rem; }
+  .bama-hero h1 { font-size: 48px; }
+  .bama-form-card { padding: 1.75rem 1.25rem; }
 }
 
 @media (max-width: 768px) {
@@ -758,7 +768,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   .cta-banner h2 { font-size: 24px; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-right { text-align: center; }
-  .sam-grid-2 { grid-template-columns: 1fr !important; }
+  .bama-grid-2 { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 480px) {
@@ -766,10 +776,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
   .hero h1 { font-size: 28px; }
 }
 </style>
-<!-- SAM site traffic tracking (pt-llc) -->
+<!-- BAMA site traffic tracking (pt-llc) -->
 <script>
 (function(){
-  var b='https://sam.penni-tech.com/pt';
+  var b='https://bama.penni-tech.com/pt';
   var t='639c82dc00d3ba72b0e2f5d7';
   try{
     var d=window.innerWidth<768?'mobile':window.innerWidth<1024?'tablet':'desktop';
@@ -792,10 +802,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     </button>
     <div class="nav-links" id="navLinks">
       <a href="#" onclick="switchTab('automation'); return false;">IT Support</a>
-      <a href="#" onclick="switchTab('sam-dashboard'); return false;">SAM Dashboard</a>
-      <!-- Existing SAM customers. Points at the workspace sign-in page at the
+      <a href="#" onclick="switchTab('bama-dashboard'); return false;">BAMA Dashboard</a>
+      <!-- Existing BAMA customers. Points at the workspace sign-in page at the
            root of the app host, NOT at /admin/ (the operator's console). -->
-      <a href="https://sam.penni-tech.com/" class="nav-login">Log in</a>
+      <a href="https://bama.penni-tech.com/" class="nav-login">Log in</a>
       <a href="#" onclick="scrollToContact(); return false;" class="nav-cta">Get in Touch</a>
     </div>
   </nav>
@@ -806,8 +816,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
     <button class="tab-btn active-ai" id="tab-automation" onclick="switchTab('automation')">
       <span class="tab-icon blue"></span>IT Support
     </button>
-    <button class="tab-btn" id="tab-sam" onclick="switchTab('sam-dashboard')">
-      <span class="tab-icon yellow"></span>SAM Dashboard
+    <button class="tab-btn" id="tab-bama" onclick="switchTab('bama-dashboard')">
+      <span class="tab-icon yellow"></span>BAMA Dashboard
     </button>
   </div>
 </div>
@@ -1052,26 +1062,27 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 </div>
 
 
-<!-- ═══ SAM DASHBOARD PAGE ═══ -->
-<div class="page sam-page" id="page-sam-dashboard">
+<!-- ═══ BAMA DASHBOARD PAGE ═══ -->
+<div class="page bama-page" id="page-bama-dashboard">
   <div class="container">
-    <div class="sam-hero">
-      <span class="sam-eyebrow"><span class="sam-eyebrow-dot"></span>Pilot Access · By Invitation</span>
-      <h1><span class="sam-mark">SAM.</span></h1>
-      <p class="sam-subtitle">Systems Administrative Management</p>
-      <p class="sam-lead">Request access to the SAM pilot.</p>
-      <p class="sam-signin">Already have a workspace? <a href="https://sam.penni-tech.com/">Log in to SAM</a></p>
+    <div class="bama-hero">
+      <img src="bama-logo.png" alt="BAMA" class="bama-badge">
+      <span class="bama-eyebrow"><span class="bama-eyebrow-dot"></span>Pilot Access · By Invitation</span>
+      <h1><span class="bama-mark">BAMA.</span></h1>
+      <p class="bama-subtitle">Business Administrative Management Agent</p>
+      <p class="bama-lead">Request access to the BAMA pilot.</p>
+      <p class="bama-signin">Already have a workspace? <a href="https://bama.penni-tech.com/">Log in to BAMA</a></p>
     </div>
   </div>
 
   <div class="container">
-    <div class="sam-form-card" id="sam-contact">
-      <div class="sam-form-title">
+    <div class="bama-form-card" id="bama-contact">
+      <div class="bama-form-title">
         <h3>Request Access</h3>
         <p>We'll review and respond shortly.</p>
       </div>
-      <form id="sam-access-form" onsubmit="return submitSamForm(this)">
-        <div class="sam-grid-2">
+      <form id="bama-access-form" onsubmit="return submitBamaForm(this)">
+        <div class="bama-grid-2">
           <div class="form-field" style="margin-bottom: 0;">
             <input type="text" name="first_name" placeholder="First Name" required>
           </div>
@@ -1085,7 +1096,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
         <div class="form-field">
           <input type="text" name="company_name" placeholder="Company Name" required>
         </div>
-        <div class="sam-grid-2">
+        <div class="bama-grid-2">
           <div class="form-field" style="margin-bottom: 0;">
             <input type="text" name="state" placeholder="State" required maxlength="50">
           </div>
@@ -1110,7 +1121,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
       <p>Washington, DC &nbsp;|&nbsp; info@penni-tech.com</p>
     </div>
     <div class="footer-right">
-      <p><a href="/privacy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="/sam_privacy.html">SAM Privacy Policy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms of Service</a></p>
+      <p><a href="/privacy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="/bama_privacy.html">BAMA Privacy Policy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms of Service</a></p>
       <p>SAM.gov Registered Entity</p>
       <p>UEI: Q3VTL5SPSU83</p>
     </div>
@@ -1122,11 +1133,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg); }
 function switchTab(tab) {
   var pages = {
     'automation': 'page-automation',
-    'sam-dashboard': 'page-sam-dashboard'
+    'bama-dashboard': 'page-bama-dashboard'
   };
   var tabs = {
     'automation': { id: 'tab-automation', cls: 'active-ai' },
-    'sam-dashboard': { id: 'tab-sam', cls: 'active-sam' }
+    'bama-dashboard': { id: 'tab-bama', cls: 'active-bama' }
   };
 
   if (!pages[tab]) { tab = 'automation'; }
@@ -1146,9 +1157,9 @@ function switchTab(tab) {
 }
 
 function scrollToContact() {
-  var samPage = document.getElementById('page-sam-dashboard');
-  if (samPage.classList.contains('active')) {
-    document.getElementById('sam-contact').scrollIntoView({ behavior: 'smooth' });
+  var bamaPage = document.getElementById('page-bama-dashboard');
+  if (bamaPage.classList.contains('active')) {
+    document.getElementById('bama-contact').scrollIntoView({ behavior: 'smooth' });
   } else {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   }
@@ -1176,13 +1187,13 @@ function submitForm(form, color) {
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending...';
 
-  // Best-effort mirror to SAM so the business owner sees this lead in their
+  // Best-effort mirror to BAMA so the business owner sees this lead in their
   // dashboard, not just their inbox. Never blocks or affects the Formspree
   // flow below — failures here are silently swallowed on purpose.
   try {
     var leadData = new FormData(form);
     var params = new URLSearchParams(location.search);
-    fetch('https://sam.penni-tech.com/pt/api/t/lead', {
+    fetch('https://bama.penni-tech.com/pt/api/t/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1219,7 +1230,7 @@ function submitForm(form, color) {
   return false;
 }
 
-function submitSamForm(form) {
+function submitBamaForm(form) {
   var submitBtn = form.querySelector('.form-submit');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending...';
@@ -1233,7 +1244,7 @@ function submitSamForm(form) {
     zip_code: form.zip_code.value.trim()
   };
 
-  fetch('https://sam.penni-tech.com/admin/api/public/access-request', {
+  fetch('https://bama.penni-tech.com/admin/api/public/access-request', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -1267,8 +1278,8 @@ window.addEventListener('load', function() {
     return;
   }
 
-  if (hash && hash.indexOf('#sam') === 0) {
-    switchTab('sam-dashboard');
+  if (hash && hash.indexOf('#bama') === 0) {
+    switchTab('bama-dashboard');
   }
 });
 </script>
