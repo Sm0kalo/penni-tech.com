@@ -738,7 +738,7 @@ mobile menu with everything else rather than being dropped at <768px. */
 <!-- BAMA site traffic tracking (pt-llc) -->
 <script>
 (function(){
-var b='https://bama.penni-tech.com/pt';
+var b='https://bam.penni-tech.com/pt';
 var t='639c82dc00d3ba72b0e2f5d7';
 try{
 var d=window.innerWidth<768?'mobile':window.innerWidth<1024?'tablet':'desktop';
@@ -764,7 +764,7 @@ else{var x=new XMLHttpRequest();x.open('POST',b+'/api/t/hit');x.setRequestHeader
 <a href="#" onclick="switchTab('bama-dashboard'); return false;">BAMA Dashboard</a>
 <!-- Existing BAMA customers. Points at the workspace sign-in page at the
 root of the app host, NOT at /admin/ (the operator's console). -->
-<a href="https://bama.penni-tech.com/" class="nav-login">Log in</a>
+<a href="https://bam.penni-tech.com/" class="nav-login">Log in</a>
 <a href="#" onclick="scrollToContact(); return false;" class="nav-cta">Get in Touch</a>
 </div>
 </nav>
@@ -1025,7 +1025,7 @@ it required would trade inquiries for data we can live without. -->
 <div class="bama-hero">
 <span class="bama-eyebrow"><span class="bama-eyebrow-dot"></span>Pilot Access · By Invitation</span>
 <p class="bama-subtitle">Business Administrative Management Agent</p>
-<p class="bama-signin">Already have a workspace? <a href="https://bama.penni-tech.com/">Log in to BAMA</a></p>
+<p class="bama-signin">Already have a workspace? <a href="https://bam.penni-tech.com/">Log in to BAMA</a></p>
 </div>
 </div>
 
@@ -1145,7 +1145,7 @@ submitBtn.textContent = 'Sending...';
 try {
 var leadData = new FormData(form);
 var params = new URLSearchParams(location.search);
-fetch('https://bama.penni-tech.com/pt/api/t/lead', {
+fetch('https://bam.penni-tech.com/pt/api/t/lead', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({
@@ -1196,7 +1196,7 @@ state: form.state.value.trim(),
 zip_code: form.zip_code.value.trim()
 };
 
-fetch('https://bama.penni-tech.com/admin/api/public/access-request', {
+fetch('https://bam.penni-tech.com/admin/api/public/access-request', {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify(data)
