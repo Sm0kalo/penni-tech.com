@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://penni-tech.com/sitemap.xml
